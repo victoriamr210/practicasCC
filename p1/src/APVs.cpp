@@ -36,13 +36,15 @@ void APV::read(char file1[], char file2[]){
       // std::cout << "AUX2-> " << aux << "\n";
       // std::cout << "transition->  ";
       transition t(aux);
-      trans.push_back(t);
+      trans.push(t);
     }
     // std::cout << initialState << " " << initialStack;
 
     f.close();
     if(check_automaton()) {
       set_string(file2);
+      std::cout << "Success!!!\n";
+      write();
       begin();
     }
 
@@ -109,15 +111,38 @@ bool APV::check_automaton(void) {
 
 void APV::write(void) {
   // std::cout << states[0] << " ";
-
+  std::cout << "\nEstados: ";
   for(auto i = states.begin(); i != states.end(); i++){
-    std::cout << *i;
+    std::cout << *i << " ";
   }
   std::cout <<"\n";
+
+  std::cout << "Alfabeto: ";
+  for(auto i = symbols.begin(); i != symbols.end(); i++){
+    std::cout << *i << " ";
+  }
+  std::cout <<"\n";
+
+  std::cout << "Alfabeto pila: ";
+  for(auto i = stackSymb.begin(); i != stackSymb.end(); i++){
+    std::cout << *i << " ";
+  }
+  std::cout <<"\n";
+
+  std::cout << "Estado inicial: " << initialState << "\n";
+  std::cout << "Top de la pila: " << initialStack << "\n";
+
+  std::cout << "Transiciones:\n";
+
+  trans.write();
 }
 
 void APV::begin () {
-  std::cout << "Success!!!\n";
+  pila.push(initialStack);
+  trans.start();
+  std::string aux;
+  aux += checkString[0];
+  trans.run(aux, pila.top());
 }
 
 void APV::set_string(char file[]){

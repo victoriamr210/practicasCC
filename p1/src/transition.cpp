@@ -44,9 +44,12 @@ std::vector<std::string> transition::get_insert(){
   return insertStack;
 }
 
-std::string transition::get_next()
-{
+std::string transition::get_next(){
   return nextState;
+}
+
+std::string transition::get_symbol(){
+  return stringSymbol;
 }
 
 void transition::set_actual(std::string actual){

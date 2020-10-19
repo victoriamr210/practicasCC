@@ -4,13 +4,14 @@
 #include <set>
 #include <string>
 #include "transition.hpp"
+#include "transition_function.hpp"
 // #include "state.hpp"
 
 class APV{
   private:
     std::stack<std::string> pila;
     std::set<std::string> states;
-    std::vector<transition> trans;
+    FTransition trans;
     std::set<std::string> symbols;
     std::set<std::string> stackSymb;
     std::string initialState;

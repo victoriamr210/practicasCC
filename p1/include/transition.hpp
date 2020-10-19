@@ -19,6 +19,7 @@ class transition{
     std::string get_top();
     std::vector<std::string> get_insert();
     std::string get_next();
+    std::string get_symbol();
 
     void set_actual(std::string actual);
     void set_top(std::string top);
