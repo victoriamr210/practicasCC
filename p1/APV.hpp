@@ -2,7 +2,9 @@
 #include <iostream>
 #include <stack>
 #include <vector>
+#include <string>
 #include "transition.hpp"
+// #include "state.hpp"
 
 class APV{
   private:
@@ -11,7 +13,7 @@ class APV{
     std::vector<transition> trans;
     std::vector<std::string> symbols;
     std::vector<std::string> stackSymb;
-    std::string intialState;
+    std::string initialState;
     std::string initialStack;
   
   public:
@@ -21,4 +23,8 @@ class APV{
     void build_states(std::string aux);
     void build_symbols(std::string aux);
     void build_stack_symbols(std::string aux);
+
+    bool check_automaton(void);
+    void begin(){}
+    // std::vector<std::string> split(std::string aux);
 };

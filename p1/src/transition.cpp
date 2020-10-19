@@ -1,7 +1,7 @@
 #include "../include/transition.hpp"
 #include <vector>
 
-transition::transition(std::string actual, char symbol, std::string top, std::string insert, std::string next){
+transition::transition(std::string actual, char symbol, std::string top, std::vector<std::string> insert, std::string next){
   stringSymbol = symbol;
   topStack = top;
   insertStack = insert;
@@ -25,12 +25,11 @@ transition::transition(std::string aux) {
   set_symbol(to_insert[1]);
   set_top(to_insert[2]);
   set_next(to_insert[3]);
-  std::string stackInsert = "";
   for(int i=4; i<to_insert.size(); i++){
-    stackInsert += to_insert[i];
+    insertStack.push_back(to_insert[i]);
   }
-  set_insert(stackInsert);
-  write();
+  // set_insert(stackInsert);
+  // write();
 }
 
 std::string transition::get_actual(){
@@ -41,7 +40,7 @@ std::string transition::get_top(){
   return topStack;
 }
 
-std::string transition::get_insert(){
+std::vector<std::string> transition::get_insert(){
   return insertStack;
 }
 
@@ -58,7 +57,7 @@ void transition::set_top(std::string top){
   topStack = top;
 }
 
-void transition::set_insert(std::string insert){
+void transition::set_insert(std::vector<std::string> insert){
   insertStack = insert;
 }
 
@@ -71,5 +70,5 @@ void transition::set_symbol(std::string symbol){
 }
 
 void transition::write(void){
-  std::cout << actualState << " " << stringSymbol << " " << topStack << " " << nextState << " " << insertStack << "\n";
+  std::cout << actualState << " " << stringSymbol << " " << topStack << " " << nextState << "\n";
 }

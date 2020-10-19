@@ -6,15 +6,15 @@ ODIR=../src
 
 LIBS=-lm
 
-_OBJ = main.o APV.o transition.o
+_OBJ = main.o APVs.o transition.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 all: main
 
-$(ODIR)/main.o: $(ODIR)/main.cpp $(IDIR)/APV.hpp 
+$(ODIR)/main.o: $(ODIR)/main.cpp $(IDIR)/APVs.hpp 
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-$(ODIR)/APV.o: $(ODIR)/APV.cpp $(IDIR)/APV.hpp 
+$(ODIR)/APVs.o: $(ODIR)/APVs.cpp $(IDIR)/APVs.hpp 
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 $(ODIR)/transition.o: $(ODIR)/transition.cpp $(IDIR)/transition.hpp 
