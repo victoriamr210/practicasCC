@@ -156,36 +156,46 @@ void APV::begin () {
 }
 
 void APV::run(std::string currentState, std::string testString, std::stack<std::string> p){
-  std::cout << "String: ";
+  std::cout << "String size: " << testString.size() << "-> ";
+  // std::cout << p.top();
   std::cout << testString;
   if(testString.size() == 0 && p.empty()){
-    std::cout << "Cadena no aceptada\n";
+    std::cout << "Cadena aceptada\n";
     return;
   }else{
+    std::cout << "\n--else--\n";
+    // std::cout << testString[0];
+
     std::string auxSymbol;
-    std::cout << "\n--else\n";
-
     auxSymbol += testString[0];
-    std::vector<transition> v = trans.get_transitions(auxSymbol, p.top(), currentState);
-    std::cout << "Candidatos: \n";
-    for(int i = 0; i < v.size(); i++){
-      v[i].write();
-    }
-    if(v.size() == 0){
-      std::cout << "Cadena aceptada\n";
-      return;
-    } 
-    for(int i = 0; i < v.size(); i++){
-      if(v[i].get_symbol() != ".") {
-        testString.erase(testString.begin());
-      } 
-      std::stack<std::string> auxStack = copyStack(p, v[i].get_insert());
-      std::cout << testString;
-      std::cout << "\n\n";
-      run (v[i].get_next(), testString, auxStack);
-    }
+    if(!p.empty()){
 
-  }
+      std::vector<transition> v = trans.get_transitions(auxSymbol, p.top(), currentState);
+      std::cout << "\nCandidatos: \n";
+      for(int i = 0; i < v.size(); i++){
+        v[i].write();
+      }
+      if(v.size() == 0){
+        std::cout << "Cadena no aceptada\n";
+        return;
+      } 
+      for(int i = 0; i < v.size(); i++){
+        if(v[i].get_symbol() != ".") {
+          std::cout << "--erase--\n";
+
+          testString.erase(testString.begin());
+        }
+        std::stack<std::string> auxStack = copyStack(p, v[i].get_insert());
+        // std::cout << testString;
+        std::cout << "\n\n";
+        run (v[i].get_next(), testString, auxStack);
+      }
+
+    } else {
+      std::cout << "Cadena no aceptada\n";
+      return;
+    }
+  } 
 }
 
 void APV::set_string(char file[]){
@@ -196,6 +206,7 @@ void APV::set_string(char file[]){
 }
 
 std::stack<std::string> APV::copyStack(std::stack<std::string> p, std::vector<std::string> insert){
+  std::cout << "--copy--\n";
   p.pop();
   for(int i = 0; i < insert.size(); i++){
     if(insert[i] != "."){
