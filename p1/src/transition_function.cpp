@@ -28,6 +28,9 @@ void FTransition::start(void){
 std::vector<transition> FTransition::get_transitions(std::string symbol, std::string stack, std::string current){
   std::vector<transition> v;
     std::cout << "\nget\n";
+    std::cout << "Estado actual: " << currentState << "\n";
+    std::cout << "String actual: " << symbol << "\n";
+    std::cout << "stack actual: " << stack << "\n";
   for(int i = 0; i < trans.size(); i++){
     if((trans[i].get_symbol() == symbol && trans[i].get_top() == stack && trans[i].get_actual() == current) || (trans[i].get_symbol() == "." && trans[i].get_top() == stack)){
       v.push_back(trans[i]);

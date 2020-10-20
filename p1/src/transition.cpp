@@ -73,5 +73,10 @@ void transition::set_symbol(std::string symbol){
 }
 
 void transition::write(void){
-  std::cout << actualState << " " << stringSymbol << " " << topStack << " " << nextState << "\n";
+  std::cout << actualState << " " << stringSymbol << " " << topStack << " " << nextState << " ";
+  for(int i = 0; i < insertStack.size(); i++){
+    std::cout << insertStack[i];
+    std::cout << " ";
+  }
+  std::cout << "\n";
 }
