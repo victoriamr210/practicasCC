@@ -20,13 +20,17 @@ std::string FTransition::get_current_state(void){
 }
 
 void FTransition::start(void){
-  currentTransition = 0;
+  // currentTransition = 0;
   currentState = trans[0].get_actual();
 }
 
 
-void FTransition::run(std::string symbol, std::string stack){
-  if(trans[currentTransition].get_symbol() == symbol){
-    std::cout <<"\nhola\n";
+std::vector<transition> FTransition::get_transitions(std::string symbol, std::string stack, std::string current){
+  std::vector<transition> v;
+  for(int i = 0; i < trans.size(); i++){
+    if((trans[i].get_symbol() == symbol && trans[i].get_top() == stack && trans[i].get_actual() == current) || (trans[i].get_symbol() == "." && trans[i].get_top() == stack)){
+      v.push_back(trans[i]);
+    }
   }
+  return v;
 }

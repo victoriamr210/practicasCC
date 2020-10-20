@@ -16,5 +16,5 @@ class FTransition{
     std::string get_current_state(void);
 
     void start(void);
-    void run(std::string symbol, std::string stack);
+    std::vector<transition> get_transitions(std::string symbol, std::string stack, std::string current);
 };

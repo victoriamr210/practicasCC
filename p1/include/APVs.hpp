@@ -28,6 +28,9 @@ class APV{
 
     bool check_automaton(void);
     void begin(void);
+    void run(std::string currentState, std::string testString, std::stack<std::string> p);
+    std::stack<std::string> copyStack(std::stack<std::string> p, std::vector<std::string> insert);
+
     void set_string(char file[]);
     // std::set<std::string> split(std::string aux);
 };
