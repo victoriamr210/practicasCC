@@ -205,57 +205,52 @@ void APV::begin () {
 
 
 void APV::run(std::string currentState, std::string testString, std::stack<std::string> p){
-  std::cout << "String size: " << testString.size() << "-> ";
+  std::cout << "\n-----------------------------------\n";
   // std::cout << p.top();
-  std::cout << testString;
   if(testString.size() == 0 && p.empty()){
-      std::cout << "Cadena aceptada\n";
-      return;
+      throw "Cadena aceptada\n";
     // std::cout << "Cadena no aceptada\n";
     // return;
   } else{
-    std::cout << "Estado actual: " << currentState << "\n";
-    std::cout << "String actual: " << testString << "\n";
-    std::cout << "\n--else--\n";
-    // std::cout << testString[0];
-
+    std::cout << "String size: " << testString << "\n";
+    std::cout << "\nEstado actual: " << currentState << "\n";
     std::string auxSymbol;
     auxSymbol += testString[0];
-    if(!p.empty()){
-
-      std::vector<transition> v = trans.get_transitions(auxSymbol, p.top(), currentState);
-      std::cout << "\nCandidatos: \n";
-      for(int i = 0; i < v.size(); i++){
-        v[i].write();
-      }
-      if(v.size() == 0){
-        std::cout << "Cadena no aceptada\n";
-        return;
-      } 
-      for(int i = 0; i < v.size(); i++){
-        //esto puede ser que este mal
-        if(v[i].get_symbol() != ".") {
-          std::cout << "--erase--\n";
-          testString.erase(testString.begin());
-        }
-        std::cout << "top: " << p.top() << "\n";
-        std::stack<std::string> auxStack = copyStack(p, v[i].get_insert());
-        // std::cout << testString;
-        std::cout << "\n\n";
-        
-        if(testString.size() == 0){
-          std::cout << "Cadena vacia\n";
-
-          run (".", testString, auxStack);
-        } else {
-          run (v[i].get_next(), testString, auxStack);
-        }
-      }
-
+    // if(!p.empty()){
+    std::vector<transition> v;
+    if(p.empty()){
+      v = trans.get_transitions(auxSymbol, ".", currentState);
     } else {
-      std::cout << "Cadena no aceptada else\n";
+      v = trans.get_transitions(auxSymbol, p.top(), currentState);
+    }
+    std::cout << "\nCandidatos: \n";
+    for(int i = 0; i < v.size(); i++){
+      v[i].write();
+    }
+    if(v.size() == 0){
+      std::cout << "Cadena no aceptada\n";
       return;
     }
+    for(int i = 0; i < v.size(); i++){
+    std::string auxString = testString; 
+      //esto puede ser que este mal
+      if(v[i].get_symbol() != ".") {
+        std::cout << "--erase--\n";
+        auxString.erase(auxString.begin());
+      }
+      std::stack<std::string> auxStack = copyStack(p, v[i].get_insert());
+      write_stack(auxStack);
+      // std::cout << testString;
+      std::cout << "\n\n";
+      
+      run(v[i].get_next(), auxString, auxStack);
+      
+      }
+
+    // } else {
+    //   std::cout << "Cadena no aceptada else\n";
+    //   return;
+    // }
   } 
 }
 
@@ -267,12 +262,33 @@ void APV::set_string(char file[]){
 }
 
 std::stack<std::string> APV::copyStack(std::stack<std::string> p, std::vector<std::string> insert){
-  std::cout << "--copy--\n";
-  p.pop();
+  // std::cout << "--copy--\n";
+  // std::cout << "pila del copy\n";
+  if(!p.empty()){
+    p.pop();
+  }
+  // write_stack(p);
+  std::cout << "vector: ";
+  for(int i = 0; i < insert.size(); i++){
+    std::cout << insert[i] << " ";
+  }
+  std::cout << "\n";
   for(int i = insert.size() -1; i >= 0; i--){
     if(insert[i] != "."){
       p.push(insert[i]);
     }
   }
+  // std::cout << "segunda pila del copy\n";
+
+  // write_stack(p);
+
   return p;
+}
+
+void APV::write_stack(std::stack<std::string>  p){
+  std::cout << "Pila: \n";
+  while (!p.empty()) {
+    std::cout << p.top() << "\n";
+    p.pop();
+  }
 }
