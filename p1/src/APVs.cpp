@@ -3,11 +3,11 @@
 #include <string>
 #include <algorithm> 
 
-APV::APV(char file1[], char file2[]){
-  read(file1, file2);
+APV::APV(char file1[]){
+  read(file1);
 }
 
-void APV::read(char file1[], char file2[]){
+void APV::read(char file1[]){
   std::fstream f;
   f.open(file1);
   std::string aux;
@@ -41,12 +41,12 @@ void APV::read(char file1[], char file2[]){
     // std::cout << initialState << " " << initialStack;
 
     f.close();
-    if(check_automaton()) {
-      set_string(file2);
-      std::cout << "Success!!!\n";
-      write();
-      begin();
-    }
+    // if(check_automaton()) {
+    //   set_string(file2);
+    //   std::cout << "Success!!!\n";
+    //   write();
+    //   begin();
+    // }
 
   }else{
     std::cerr << "Error de apertura\n";
@@ -145,62 +145,7 @@ void APV::begin () {
   std::stack<std::string> p = pila;
 
   run(initialState, checkString, p);
-  //for(cadena i ){
-  //   vector transitions
-  //   if(vectro,size > 0)
-  //   for(vector ){
-
-  //     nextstate cadena[i]
-  //   }
-  // }
 }
-
-// void APV::run(std::string currentState, std::string testString, std::stack<std::string> p){
-//   std::cout << "String size: " << testString.size() << "-> ";
-//   // std::cout << p.top();
-//   std::cout << testString;
-//   if(testString.size() == 0){
-//     if(p.empty()){
-//       std::cout << "Cadena aceptada\n";
-//       return;
-//     }
-//     std::cout << "Cadena no aceptada\n";
-//     return;
-//   }else{
-//     std::cout << "\n--else--\n";
-//     // std::cout << testString[0];
-
-//     std::string auxSymbol;
-//     auxSymbol += testString[0];
-//     if(!p.empty()){
-
-//       std::vector<transition> v = trans.get_transitions(auxSymbol, p.top(), currentState);
-//       std::cout << "\nCandidatos: \n";
-//       for(int i = 0; i < v.size(); i++){
-//         v[i].write();
-//       }
-//       if(v.size() == 0){
-//         std::cout << "Cadena no aceptada\n";
-//         return;
-//       } 
-//       for(int i = 0; i < v.size(); i++){
-//         if(v[i].get_symbol() != ".") {
-//           std::cout << "--erase--\n";
-
-//           testString.erase(testString.begin());
-//         }
-//         std::stack<std::string> auxStack = copyStack(p, v[i].get_insert());
-//         // std::cout << testString;
-//         std::cout << "\n\n";
-//         run (v[i].get_next(), testString, auxStack);
-//       }
-
-//     } else {
-//       std::cout << "Cadena no aceptada else\n";
-//       return;
-//     }
-//   } 
-// }
 
 
 
@@ -254,11 +199,8 @@ void APV::run(std::string currentState, std::string testString, std::stack<std::
   } 
 }
 
-void APV::set_string(char file[]){
-  std::fstream f;
-  f.open(file);
-  f >> checkString;
-  std::cout << checkString << "\n";
+void APV::set_string(std::string aux){
+  checkString = aux;
 }
 
 std::stack<std::string> APV::copyStack(std::stack<std::string> p, std::vector<std::string> insert){

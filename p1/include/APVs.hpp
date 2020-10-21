@@ -19,8 +19,8 @@ class APV{
     std::string checkString;
   
   public:
-    APV(char file1[], char file2[]);
-    void read(char file1[], char file2[]);
+    APV(char file1[]);
+    void read(char file1[]);
     void write();
     void build_states(std::string aux);
     void build_symbols(std::string aux);
@@ -31,7 +31,7 @@ class APV{
     void run(std::string currentState, std::string testString, std::stack<std::string> p);
     std::stack<std::string> copyStack(std::stack<std::string> p, std::vector<std::string> insert);
 
-    void set_string(char file[]);
+    void set_string(std::string aux);
     void write_stack(std::stack<std::string> p);
     // std::set<std::string> split(std::string aux);
 };
