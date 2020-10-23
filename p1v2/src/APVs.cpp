@@ -36,7 +36,9 @@ void APV::read(char file1[]){
       // std::cout << "AUX2-> " << aux << "\n";
       // std::cout << "transition->  ";
       transition t(aux);
-      trans.push(t);
+      make_state(t.get_actual(), t);
+      // states.find()
+      // trans.push(t);
     }
     // std::cout << initialState << " " << initialStack;
 
@@ -44,7 +46,7 @@ void APV::read(char file1[]){
     // if(check_automaton()) {
     //   set_string(file2);
     //   std::cout << "Success!!!\n";
-    //   write();
+      // write();
     //   begin();
     // }
 
@@ -60,11 +62,15 @@ void APV::build_states(std::string aux){
     if(aux[i] != ' '){
       toInsert += aux[i];
     } else {
-      states.insert(toInsert);
+      state s(toInsert);
+      states.push_back(s);
+      stateSet.insert(toInsert);
       toInsert = "";
     }
   }
-  states.insert(toInsert);
+  state s(toInsert);
+  states.push_back(s);
+  stateSet.insert(toInsert);
   // write();
 }
 
@@ -95,7 +101,7 @@ bool APV::check_automaton(void) {
 
   // write();
 
-  if (states.find(initialState) == states.end()){
+  if (stateSet.find(initialState) == stateSet.end()){
     std::cerr << "ERROR: Estado inicial no esta en el conjunto de estados\n";
     return false;
   }
@@ -112,7 +118,7 @@ bool APV::check_automaton(void) {
 void APV::write(void) {
   // std::cout << states[0] << " ";
   std::cout << "\nEstados: ";
-  for(auto i = states.begin(); i != states.end(); i++){
+  for(auto i = stateSet.begin(); i != stateSet.end(); i++){
     std::cout << *i << " ";
   }
   std::cout <<"\n";
@@ -132,14 +138,17 @@ void APV::write(void) {
   std::cout << "Estado inicial: " << initialState << "\n";
   std::cout << "Top de la pila: " << initialStack << "\n";
 
-  std::cout << "Transiciones:\n";
+  std::cout << "\nTransiciones:\n";
 
-  trans.write();
+  for(int i = 0; i < states.size(); i++){
+    std::cout << "\n\tEstado " << states[i].get_id() << ":\n";
+    states[i].write();
+  }
 }
 
 void APV::begin () {
   pila.push(initialStack);
-  trans.start();
+  // trans.start();
   std::string aux;
   std::vector<transition> v;
   std::stack<std::string> p = pila;
@@ -164,9 +173,9 @@ void APV::run(std::string currentState, std::string testString, std::stack<std::
     // if(!p.empty()){
     std::vector<transition> v;
     if(p.empty()){
-      v = trans.get_transitions(auxSymbol, ".", currentState);
+      v = get_transitions(auxSymbol, ".", currentState);
     } else {
-      v = trans.get_transitions(auxSymbol, p.top(), currentState);
+      v = get_transitions(auxSymbol, p.top(), currentState);
     }
     std::cout << "\nCandidatos: \n";
     for(int i = 0; i < v.size(); i++){
@@ -225,5 +234,23 @@ void APV::write_stack(std::stack<std::string>  p){
   while (!p.empty()) {
     std::cout << p.top() << "\n";
     p.pop();
+  }
+}
+
+void APV::make_state(std::string s, transition t){
+  for(int i = 0; i < states.size(); i++){
+    if(states[i].check_id(s)){
+      states[i].push(t);
+    }
+  }
+}
+
+std::vector<transition> APV::get_transitions(std::string symbol, std::string topStack, std::string state) {
+  std::vector<transition> v;
+  for(int i = 0; i < states.size(); i++){
+    if(states[i].check_id(state)){
+      v = states[i].get_trans(symbol, topStack);
+      return v;
+    }
   }
 }

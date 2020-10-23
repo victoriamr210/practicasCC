@@ -1,0 +1,12 @@
+void APV::buildStates(std::string states) {
+  std::string actualState, delimiter = " ";
+  int position = 0;
+
+  while ((position = states.find(delimiter)) != std::string::npos) {
+    actualState = states.substr(0, position);
+    states_.push_back(actualState);
+    states.erase(0, position + delimiter.length());
+  }
+
+  states_.push_back(states);
+}
