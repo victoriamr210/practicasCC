@@ -15,40 +15,26 @@ void APV::read(char file1[]){
   if(f.is_open()){
     while(std::getline(f, aux)){
       if(aux[0] != '#'){
-        // std::cout << aux << "\n";
         build_states(aux);
         break;
       }
     }
     std::getline(f,aux);
-    // std::cout << aux << "\n";
     build_symbols(aux);
     std::getline(f, aux);
-    // std::cout << aux << "\n";
     build_stack_symbols(aux);
     std::getline(f, initialState);
     std::getline(f, initialStack);
-    // f >> initialState;
-    // f >> initialStack;
 
     while(!f.eof()){
       std::getline(f, aux);
-      // std::cout << "AUX2-> " << aux << "\n";
-      // std::cout << "transition->  ";
       transition t(aux);
       make_state(t.get_actual(), t);
       // states.find()
       // trans.push(t);
     }
-    // std::cout << initialState << " " << initialStack;
 
     f.close();
-    // if(check_automaton()) {
-    //   set_string(file2);
-    //   std::cout << "Success!!!\n";
-      // write();
-    //   begin();
-    // }
 
   }else{
     std::cerr << "Error de apertura\n";
@@ -79,12 +65,9 @@ void APV::build_symbols(std::string aux){
   for(int i = 0; i < aux.size(); i++){
     if(aux[i] != ' '){
       toInsert = aux[i];
-      // std::cout << insert << " insert\n";
       symbols.insert(toInsert);
-      // std::cout << symbols.back() << " back\n";
     }
   }
-  // write();
 }
 
 void APV::build_stack_symbols(std::string aux){
@@ -199,12 +182,7 @@ void APV::run(std::string currentState, std::string testString, std::stack<std::
       
       run(v[i].get_next(), auxString, auxStack);
       
-      }
-
-    // } else {
-    //   std::cout << "Cadena no aceptada else\n";
-    //   return;
-    // }
+    }
   } 
 }
 
