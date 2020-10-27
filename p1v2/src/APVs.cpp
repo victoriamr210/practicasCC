@@ -125,8 +125,14 @@ void APV::write(void) {
 
   for(int i = 0; i < states.size(); i++){
     std::cout << "\n\tEstado " << states[i].get_id() << ":\n";
+    
     states[i].write();
   }
+
+}
+
+void APV::write_string(void){
+  std::cout << "\n\tCadena a comprobar: " << checkString << "\n";
 }
 
 void APV::begin () {
@@ -149,10 +155,11 @@ void APV::run(std::string currentState, std::string testString, std::stack<std::
     // std::cout << "Cadena no aceptada\n";
     // return;
   } else{
-    std::cout << "String size: " << testString << "\n";
-    std::cout << "\nEstado actual: " << currentState << "\n";
+    // std::cout << "String size: " << testString << "\n";
     std::string auxSymbol;
     auxSymbol += testString[0];
+    std::cout << "Simbolo actual: " << auxSymbol;
+    std::cout << "\tEstado actual: " << currentState << "\n";
     // if(!p.empty()){
     std::vector<transition> v;
     if(p.empty()){
@@ -160,7 +167,7 @@ void APV::run(std::string currentState, std::string testString, std::stack<std::
     } else {
       v = get_transitions(auxSymbol, p.top(), currentState);
     }
-    std::cout << "\nCandidatos: \n";
+    std::cout << "\nTransiciones posibles: \n";
     for(int i = 0; i < v.size(); i++){
       v[i].write();
     }
@@ -170,15 +177,13 @@ void APV::run(std::string currentState, std::string testString, std::stack<std::
     }
     for(int i = 0; i < v.size(); i++){
     std::string auxString = testString; 
-      //esto puede ser que este mal
       if(v[i].get_symbol() != ".") {
-        std::cout << "--erase--\n";
         auxString.erase(auxString.begin());
       }
       std::stack<std::string> auxStack = copyStack(p, v[i].get_insert());
       write_stack(auxStack);
       // std::cout << testString;
-      std::cout << "\n\n";
+      // std::cout << "\n\n";
       
       run(v[i].get_next(), auxString, auxStack);
       
@@ -194,11 +199,11 @@ std::stack<std::string> APV::copyStack(std::stack<std::string> p, std::vector<st
   if(!p.empty()){
     p.pop();
   }
-  std::cout << "vector: ";
-  for(int i = 0; i < insert.size(); i++){
-    std::cout << insert[i] << " ";
-  }
-  std::cout << "\n";
+  // std::cout << "vector: ";
+  // for(int i = 0; i < insert.size(); i++){
+  //   std::cout << insert[i] << " ";
+  // }
+  // std::cout << "\n";
   for(int i = insert.size() -1; i >= 0; i--){
     if(insert[i] != "."){
       p.push(insert[i]);
@@ -210,9 +215,10 @@ std::stack<std::string> APV::copyStack(std::stack<std::string> p, std::vector<st
 void APV::write_stack(std::stack<std::string>  p){
   std::cout << "Pila: \n";
   while (!p.empty()) {
-    std::cout << p.top() << "\n";
+    std::cout << p.top() << " ";
     p.pop();
   }
+  std::cout <<"\n";
 }
 
 void APV::make_state(std::string s, transition t){

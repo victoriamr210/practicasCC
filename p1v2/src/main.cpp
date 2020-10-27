@@ -21,7 +21,6 @@ std::vector<std::string> get_strings(char file[]){
 
 int main(int argc, char* argv[]) {    
 	if(argc == 3) {
-    std::cout << "Hello\n";
     APV automata(argv[1]);
     std::vector<std::string> strings;
     if(automata.check_automaton()){
@@ -30,6 +29,7 @@ int main(int argc, char* argv[]) {
       for(int i = 0; i < strings.size(); i++){
         try{
           automata.set_string(strings[i]);
+          automata.write_string();
           automata.begin();
         }catch(char const* e){
           std::cout << e;

@@ -33,6 +33,7 @@ class APV{
     void set_string(std::string aux);  //cambiar cadena a comprobar
     void write_stack(std::stack<std::string> p); //mostrar pila
     void make_state(std::string s, transition t);  //crear estado con transiciones
+    void write_string(void); //imprime cadena a comprobar
     //transiciones posibles segun el esatado actual, el simbolo a consumir y simbolo en el top de la pila
     std::vector<transition> get_transitions(std::string symbol, std::string topStack, std::string state); 
 };
