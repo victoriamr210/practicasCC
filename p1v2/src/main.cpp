@@ -38,6 +38,6 @@ int main(int argc, char* argv[]) {
     }
     // automata.write();
   } else {
-    std::cerr << "ERROR: Introduzca nombre de fichero pls\n";
+    std::cerr << "ERROR:\n Para ejecutar el programa ./main fichero-APV ficher-cadena";
   }
 }

@@ -182,9 +182,6 @@ void APV::run(std::string currentState, std::string testString, std::stack<std::
       }
       std::stack<std::string> auxStack = copyStack(p, v[i].get_insert());
       write_stack(auxStack);
-      // std::cout << testString;
-      // std::cout << "\n\n";
-      
       run(v[i].get_next(), auxString, auxStack);
       
     }
