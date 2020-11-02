@@ -5,32 +5,23 @@ Transition::Transition(std::string aux) {
   std::string insert, space = " ";
   int pos = 0;
   std::vector<std::string> to_insert;
+  // std::cout << aux << "\n";
 
-  // while ((pos = aux.find(space)) != std::string::npos){
-  //   insert = aux.substr(0, pos);
-  //   to_insert.push_back(insert);
-  //   aux.erase(0, pos + space.length());
-  // }
-  insert = "";
-  for(int i = 0; i < aux.size(); i++){
-    if(aux[i] != ' '){
-      insert += aux[i];
-    } else {
-      to_insert.push_back(insert);
-      // std::cout << to_insert.back() << "\n";
-      insert = "";
-    }
+  while ((pos = aux.find(space)) != std::string::npos){
+    insert = aux.substr(0, pos);
+    to_insert.push_back(insert);
+    aux.erase(0, pos + space.length());
   }
+  to_insert.push_back(aux);
 
-  std::cout << to_insert.size() << "\n";
+  // std::cout << to_insert.size() << "\n";
   // to_insert.push_back(aux);
-  // set_actual(to_insert[0]);
-  // set_readSymbol(to_insert[1]);
-  // set_next(to_insert[2]);
-  // set_writeSymbol(to_insert[3]);
-  // set_movement(to_insert[4]);
+  set_actual(to_insert[0]);
+  set_readSymbol(to_insert[1]);
+  set_next(to_insert[2]);
+  set_writeSymbol(to_insert[3]);
+  set_movement(to_insert[4]);
   // set_insert(stackInsert);
-  // write();
 }
 
 std::string Transition::get_actual(){

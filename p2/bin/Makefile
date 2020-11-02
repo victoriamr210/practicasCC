@@ -23,6 +23,9 @@ $(ODIR)/state.o: $(ODIR)/state.cpp $(IDIR)/state.hpp $(IDIR)/transition.hpp
 $(ODIR)/transition.o: $(ODIR)/transition.cpp $(IDIR)/transition.hpp 
 	$(CC) -c -o $@ $< $(CFLAGS)
 
+$(ODIR)/tape.o: $(ODIR)/tape.cpp $(IDIR)/tape.hpp 
+	$(CC) -c -o $@ $< $(CFLAGS)
+
 main: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 

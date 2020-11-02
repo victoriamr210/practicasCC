@@ -25,15 +25,18 @@ void Machine::read(char file[]){
     build_tape_symbols(aux);
     std::getline(f, initialState_);
     std::getline(f, blank_);
+    std::getline(f, aux);
     while(!f.eof()){
       std::getline(f, aux);
       Transition t(aux);
-      // make_state(t.get_actual(), t);
+      make_state(t.get_actual(), t);
       // states.find()
-      // trans.push(t);
+      // trans_.push(t);
     }
 
     f.close();
+  }else{
+    std::cerr << "Error de apertura\n";
   }
   write();
 }
@@ -116,4 +119,12 @@ void Machine::make_state(std::string s, Transition t){
       break;
     }
   }
+}
+
+bool Machine::check_machine(void){
+   if (stateSet_.find(initialState_) == stateSet_.end()){
+    std::cerr << "ERROR: Estado inicial no esta en el conjunto de estados\n";
+    return false;
+  }
+  return true;
 }

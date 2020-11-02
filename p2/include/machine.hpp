@@ -25,4 +25,5 @@ class Machine{
     void build_symbols(std::string aux);
     void make_state(std::string id, Transition t);
     void write(void);
+    bool check_machine(void);
 };
