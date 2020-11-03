@@ -25,7 +25,7 @@ void Machine::read(char file[]){
     build_tape_symbols(aux);
     std::getline(f, initialState_);
     std::getline(f, blank_);
-    std::getline(f, aux);
+    std::getline(f, finalState_);
     while(!f.eof()){
       std::getline(f, aux);
       Transition t(aux);
@@ -80,7 +80,7 @@ void Machine::build_tape_symbols(std::string aux){
 }
 
 void Machine::write(void) {
-  // std::cout << states[0] << " ";
+  std::cout << *(stateSet_.begin()) << " ";
   std::cout << "\nEstados:\n";
   for(auto i = stateSet_.begin(); i != stateSet_.end(); i++){
     std::cout << *i << " ";
@@ -122,9 +122,16 @@ void Machine::make_state(std::string s, Transition t){
 }
 
 bool Machine::check_machine(void){
+  std::cout << *(stateSet_.begin()) << " " << initialState_ << "\n";
+
    if (stateSet_.find(initialState_) == stateSet_.end()){
-    std::cerr << "ERROR: Estado inicial no esta en el conjunto de estados\n";
-    return false;
+  //   std::cerr << "ERROR: Estado inicial no esta en el conjunto de estados\n";
+  //   return true;
   }
   return true;
+}
+
+void Machine::set_string(std::string aux){
+  tape_.set(aux);
+  tape_.write();
 }

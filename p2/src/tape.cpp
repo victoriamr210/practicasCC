@@ -30,3 +30,27 @@ std::string Tape::get_actual(void){
 int Tape::get_head(void){
   return head_;
 }
+
+void Tape::set(std::string setString){
+  std::string aux;
+  tape_.push_back(".");
+  for(int i = 0; i < setString.size(); i++){
+    aux += setString[i];
+    tape_.push_back(aux);
+    aux = "";
+  }
+  tape_.push_back(".");
+
+  head_ = 0;
+}
+
+void Tape::write(void){
+  for(int i = 0 ; i < tape_.size(); i++){
+    if(i == head_){
+      std::cout << "[" << tape_[i] << "]";
+    } else {
+      std::cout << tape_[i];
+    }
+  }
+  std::cout << "\n";
+}

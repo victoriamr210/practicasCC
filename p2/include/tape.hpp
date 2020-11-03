@@ -1,8 +1,8 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#define LEFT = "L"
-#define RIGHT = "R"
+#define LEFT "L"
+#define RIGHT "R"
 
 class Tape{
   private:
@@ -13,6 +13,8 @@ class Tape{
     Tape(){}
     Tape(std::string testString);
     void move_head(std::string write, std::string movement);
-    int get_actual(void);
+    std::string get_actual(void);
     int get_head(void);
+    void set(std::string setString);
+    void write(void);
 };

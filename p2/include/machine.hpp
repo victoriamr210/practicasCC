@@ -15,7 +15,8 @@ class Machine{
     std::set<std::string> tapeSymb_; //conjunto de simbolos de la cinta
     std::string initialState_;        //estado incial
     std::string blank_; //simbolo en blanco
-    std::set<std::string> finalStates_; //conunto F
+    std::string finalState_; //estado final
+    std::set<std::string> finalStates_; //conjunto F
 
   public:
     Machine(char file[]);
@@ -26,4 +27,5 @@ class Machine{
     void make_state(std::string id, Transition t);
     void write(void);
     bool check_machine(void);
+    void set_string(std::string aux);
 };

@@ -6,7 +6,7 @@ ODIR=../src
 
 LIBS=-lm
 
-_OBJ = main.o machine.o state.o transition.o
+_OBJ = main.o machine.o state.o transition.o tape.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 all: main
