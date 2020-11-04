@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 
 class Transition{
   private:
@@ -8,10 +9,15 @@ class Transition{
     std::string writeTape_;                 //simbolo del top de la pila
     std::string nextState_;                //estado siguiente
     std::string movement_;
+    int tapeNumber_;
+
+    std::vector<std::string> readTapes_;
+    std::vector<std::string> writeTapes_;
+    std::vector<std::string> movements_;
   
   public:
     Transition(){}
-    Transition(std::string aux);
+    Transition(std::string aux, int number);
     std::string get_actual();              //getter del estado inicial
     std::string get_readSymbol();                 //get del simbolo a leer de la cinta
     std::string get_writeSymbol(); //getter del simbolo a leer de la cinta

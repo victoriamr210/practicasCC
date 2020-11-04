@@ -1,9 +1,12 @@
 #include "../include/transition.hpp"
 #include <vector>
 
-Transition::Transition(std::string aux) {
+Transition::Transition(std::string aux, int number) {
+  tapeNumber_ = number;
+
   std::string insert, space = " ";
   int pos = 0;
+  // std::cout << "seg\n";
   std::vector<std::string> to_insert;
   // std::cout << aux << "\n";
 
@@ -13,14 +16,27 @@ Transition::Transition(std::string aux) {
     aux.erase(0, pos + space.length());
   }
   to_insert.push_back(aux);
-
-  // std::cout << to_insert.size() << "\n";
   // to_insert.push_back(aux);
-  set_actual(to_insert[0]);
-  set_readSymbol(to_insert[1]);
-  set_next(to_insert[2]);
-  set_writeSymbol(to_insert[3]);
-  set_movement(to_insert[4]);
+  int last = 0;
+  set_actual(to_insert[last++]);
+  for(int i = 0; i< tapeNumber_; i++){
+    readTapes_.push_back(to_insert[last++]);
+    // std::cout << "read\n";
+
+    // last++;
+  }
+  // set_readSymbol(to_insert[1]);
+  set_next(to_insert[last++]);
+  for(int i = 0; i < tapeNumber_; i++){
+    writeTapes_.push_back(to_insert[last++]);
+    // std::cout << "write\n";
+  }
+  for(int i = 0; i< tapeNumber_; i++){
+    movements_.push_back(to_insert[last++]);
+    // std::cout << "move\n";
+  }
+  // set_writeSymbol(to_insert[3]);
+  // set_movement(to_insert[4]);
   // set_insert(stackInsert);
 }
 
@@ -65,6 +81,22 @@ void Transition::set_movement(std::string move){
 }
 
 void Transition::write(void){
-  std::cout << actualState_ << " " << readTape_ << " " << nextState_ << " " << 
-    writeTape_ << " " << movement_ << "\n";
+  // std::cout << actualState_ << " " << readTape_ << " " << nextState_ << " " << 
+  //   writeTape_ << " " << movement_ << "\n";
+  std::cout  << "Atcual: " << actualState_ << " ";
+  std::cout << "\nLeer: \n";
+  for(int i = 0; i<tapeNumber_; i++){
+    std::cout << "cinta " << i << ":" << readTapes_[i] << "\n";
+  }
+  std::cout << nextState_ << " ";
+
+  std::cout << "\nEscribe: \n";
+  for(int i = 0; i<tapeNumber_; i++){
+    std::cout << "cinta " << i << ":" << writeTapes_[i] << "\n";
+  }
+
+  std::cout << "\nSe mueve: \n";
+  for(int i = 0; i<tapeNumber_; i++){
+    std::cout << "cinta " << i << ":" << movements_[i] << " ";
+  }
 }

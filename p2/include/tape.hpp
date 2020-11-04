@@ -3,6 +3,7 @@
 #include <vector>
 #define LEFT "L"
 #define RIGHT "R"
+#define STOP "S"
 
 class Tape{
   private:

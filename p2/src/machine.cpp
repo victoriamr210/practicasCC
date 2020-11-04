@@ -26,14 +26,18 @@ void Machine::read(char file[]){
     std::getline(f, initialState_);
     std::getline(f, blank_);
     std::getline(f, finalState_);
+    std::getline(f, aux);
+    tapes_ = stoi(aux);
     while(!f.eof()){
       std::getline(f, aux);
-      Transition t(aux);
+      // std::cout << "in\n";
+      Transition t(aux, tapes_);
+      // std::cout << "out\n";
       make_state(t.get_actual(), t);
+      // std::cout << "state\n";
       // states.find()
       // trans_.push(t);
     }
-
     f.close();
   }else{
     std::cerr << "Error de apertura\n";
@@ -80,7 +84,7 @@ void Machine::build_tape_symbols(std::string aux){
 }
 
 void Machine::write(void) {
-  std::cout << *(stateSet_.begin()) << " ";
+  // std::cout << *(stateSet_.begin()) << " ";
   std::cout << "\nEstados:\n";
   for(auto i = stateSet_.begin(); i != stateSet_.end(); i++){
     std::cout << *i << " ";
@@ -105,8 +109,7 @@ void Machine::write(void) {
   std::cout << "\nTransiciones:\n";
 
   for(int i = 0; i < states_.size(); i++){
-    std::cout << "\n\tEstado " << states_[i].get_id() << ":\n";
-    
+    std::cout << "\nEstado " << states_[i].get_id() << ":\n";
     states_[i].write();
   }
 
@@ -116,22 +119,22 @@ void Machine::make_state(std::string s, Transition t){
   for(int i = 0; i < states_.size(); i++){
     if(states_[i].check_id(s)){
       states_[i].push(t);
-      break;
+      // std::cout << "why\n";
     }
   }
 }
 
 bool Machine::check_machine(void){
-  std::cout << *(stateSet_.begin()) << " " << initialState_ << "\n";
+  // std::cout << *(stateSet_.begin()) << " " << initialState_ << "\n";
 
    if (stateSet_.find(initialState_) == stateSet_.end()){
   //   std::cerr << "ERROR: Estado inicial no esta en el conjunto de estados\n";
-  //   return true;
+  //   return false;
   }
   return true;
 }
 
 void Machine::set_string(std::string aux){
   tape_.set(aux);
-  tape_.write();
+  // tape_.write();
 }
