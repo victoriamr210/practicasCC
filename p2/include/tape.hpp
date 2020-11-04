@@ -11,7 +11,7 @@ class Tape{
     int head_;
   
   public:
-    Tape(){}
+    Tape();
     Tape(std::string testString);
     void move_head(std::string write, std::string movement);
     std::string get_actual(void);

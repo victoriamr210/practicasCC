@@ -27,11 +27,11 @@ void Machine::read(char file[]){
     std::getline(f, blank_);
     std::getline(f, finalState_);
     std::getline(f, aux);
-    tapes_ = stoi(aux);
+    numberTapes_ = stoi(aux);
     while(!f.eof()){
       std::getline(f, aux);
       // std::cout << "in\n";
-      Transition t(aux, tapes_);
+      Transition t(aux, numberTapes_);
       // std::cout << "out\n";
       make_state(t.get_actual(), t);
       // std::cout << "state\n";
@@ -113,6 +113,7 @@ void Machine::write(void) {
     states_[i].write();
   }
 
+
 }
 
 void Machine::make_state(std::string s, Transition t){
@@ -135,6 +136,15 @@ bool Machine::check_machine(void){
 }
 
 void Machine::set_string(std::string aux){
-  tape_.set(aux);
-  // tape_.write();
+  tapes_.resize(numberTapes_);
+  Tape t(aux);
+  tapes_[0] = t;
+  for(int i = 1; i< numberTapes_; i++){
+    Tape tt;
+    tapes_[i] = tt;
+  }
+  std::cout << "\nCINTAS:\n";
+  for(int i = 0; i< numberTapes_; i++){
+    tapes_[i].write();
+  }
 }

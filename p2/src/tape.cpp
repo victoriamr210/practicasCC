@@ -1,5 +1,9 @@
 #include "../include/tape.hpp"
 
+Tape::Tape(void){
+  tape_.push_back(".");
+}
+
 Tape::Tape(std::string testString){
   std::string aux;
   tape_.push_back(".");

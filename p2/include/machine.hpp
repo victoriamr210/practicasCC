@@ -17,8 +17,8 @@ class Machine{
     std::string blank_; //simbolo en blanco
     std::string finalState_; //estado final
     std::set<std::string> finalStates_; //conjunto F
-    std::vector<Tape> T_;
-    int tapes_;
+    std::vector<Tape> tapes_;
+    int numberTapes_;
 
   public:
     Machine(char file[]);
