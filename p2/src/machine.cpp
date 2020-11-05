@@ -38,6 +38,7 @@ void Machine::read(char file[]){
       // states.find()
       // trans_.push(t);
     }
+
     f.close();
   }else{
     std::cerr << "Error de apertura\n";
@@ -86,38 +87,37 @@ void Machine::build_tape_symbols(std::string aux){
 void Machine::run(void){
   std::string currentState = initialState_;
   while(finalState_.compare(currentState) != 0){
-    std::cout << "||||" << currentState << " - " << finalState_ << "||||||\n";
     int pos = find_state(currentState);
     std::vector<std::string> readTape = get_read_tapes();
     // states_[pos].write();
     Transition actual = states_[pos].get_trans(readTape);
-    actual.write();
+    // actual.write();
     std::vector<std::string> writeTape = actual.get_writeSymbols();
     std::vector<std::string> moveTape = actual.get_movements();
     for(int i = 0; i < numberTapes_; i++){
       tapes_[i].move_head(writeTape[i], moveTape[i]);
     }
     currentState = actual.get_next();
-    std::cout << "current-> " << currentState << "\n";
   }
-  std::cout << "fin bucle\n";
+  write_tapes();
+
 }
 
 void Machine::write(void) {
   // std::cout << *(stateSet_.begin()) << " ";
-  std::cout << "\nEstados:\n";
+  std::cout << "\nEstados: ";
   for(auto i = stateSet_.begin(); i != stateSet_.end(); i++){
     std::cout << *i << " ";
   }
   std::cout <<"\n";
 
-  std::cout << "Alfabeto:\n";
+  std::cout << "Alfabeto: ";
   for(auto i = symbols_.begin(); i != symbols_.end(); i++){
     std::cout << *i << " ";
   }
   std::cout <<"\n";
 
-  std::cout << "Alfabeto cinta:\n ";
+  std::cout << "Alfabeto cinta: ";
   for(auto i = tapeSymb_.begin(); i != tapeSymb_.end(); i++){
     std::cout << *i << " ";
   }
@@ -129,7 +129,7 @@ void Machine::write(void) {
   std::cout << "\nTransiciones:\n";
 
   for(int i = 0; i < states_.size(); i++){
-    std::cout << "\nEstado " << states_[i].get_id() << ":\n";
+    std::cout << "\n\tEstado " << states_[i].get_id() << ":\n";
     states_[i].write();
   }
 
@@ -162,10 +162,6 @@ void Machine::set_string(std::string aux){
     Tape tt;
     tapes_[i] = tt;
   }
-  // std::cout << "\nCINTAS:\n";
-  // for(int i = 0; i< numberTapes_; i++){
-  //   tapes_[i].write();
-  // }
 }
 
 int Machine::find_state(std::string state){
@@ -184,4 +180,11 @@ std::vector<std::string> Machine::get_read_tapes(void){
     aux.push_back(tapes_[i].get_actual());
   }
   return aux;
+}
+
+void Machine::write_tapes(void){
+  std::cout << "\nCINTAS:\n";
+  for(int i = 0; i< numberTapes_; i++){
+    tapes_[i].write();
+  }
 }

@@ -19,12 +19,8 @@ bool State::check_id(std::string aux){
 }
 
 Transition State::get_trans(std::vector<std::string> symbols){
-  std::cout << get_id() << " id\n";
-
   for(int i = 0; i < trans_.size(); i++){
     if (trans_[i].get_readSymbols() == symbols){
-      // trans_[i].write();
-      // std::cout << i << "\n";
       return trans_[i];
     }
   }
@@ -36,7 +32,6 @@ void State::push(Transition t){
 
 void State::write(void){
   for(int i =0; i < trans_.size(); i++){
-    std::cout << "----------------------\n";
     trans_[i].write();
   }
 }

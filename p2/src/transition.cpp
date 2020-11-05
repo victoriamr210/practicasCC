@@ -94,23 +94,22 @@ void Transition::set_movement(char move){
 void Transition::write(void){
   // std::cout << actualState_ << " " << readTape_ << " " << nextState_ << " " << 
   //   writeTape_ << " " << movement_ << "\n";
-  std::cout << "-------------------------\n";
-  std::cout  << "Actual: " << actualState_ << " ";
-  std::cout << "\nLeer:\n";
+  std::cout  << "\nActual: " << actualState_ << " ";
+  std::cout << "\nLeer: -> ";
   for(int i = 0; i<tapeNumber_; i++){
-    std::cout << "cinta " << i << ":" << readTapes_[i] << "\n";
+    std::cout << "Cinta " << i << ":" << readTapes_[i] << " | ";
   }
-  std::cout << "Siguiente:" << nextState_ << " ";
+  std::cout << "\nSiguiente:" << nextState_ << "\n";
 
-  std::cout << "\n\nEscribe: \n";
+  std::cout << "Escribe: -> ";
   for(int i = 0; i<tapeNumber_; i++){
-    std::cout << "cinta " << i << ":" << writeTapes_[i] << "\n";
+    std::cout << "Cinta " << i << ":" << writeTapes_[i] << " | ";
   }
 
-  std::cout << "\nSe mueve: \n";
+  std::cout << "\nMovimiento: ->";
   std::cout << movement_[0];
   for(int i = 0; i<tapeNumber_; i++){
-    std::cout << "cinta " << i << ":" << movements_[i] << " ";
+    std::cout << "Cinta " << i << ":" << movements_[i] << " | ";
   }
-  std::cout << "\n-------------------------\n";
+  std::cout << "\n";
 }

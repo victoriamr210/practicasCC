@@ -20,10 +20,8 @@ Tape::Tape(std::string testString){
 
 void Tape::move_head(std::string write, std::string movement){
   tape_[head_] = write;
-  std::cout << movement << "\n";
   char move = movement[0];
-  if(move == LEFT){
-    std::cout << "nos movemos a la izda\n";
+  if(movement == LEFT){
     head_--;
     if(head_ == -1){
       tape_.resize(tape_.size() + 1);
@@ -32,8 +30,7 @@ void Tape::move_head(std::string write, std::string movement){
       head_ = 0;
     }
   }
-  if(move == RIGHT){
-    std::cout << "nos movemos a la derecha\n";
+  if(movement == RIGHT){
     head_++;
     if(head_ == tape_.size()){
       tape_.resize(tape_.size() +1);

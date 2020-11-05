@@ -33,4 +33,5 @@ class Machine{
     void run(void);
     int find_state(std::string state);
     std::vector<std::string> get_read_tapes(void);
+    void write_tapes(void);
 };

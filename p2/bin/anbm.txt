@@ -1,7 +1,6 @@
-# Ejemplo de una MT
-# Reconoce el lenguaje L = {a^nb^m | m > n, n > 0}
+# reconoce el lenguaje L = {a?nb^m | m>n,n>0}
 q0 q1 q2
-a b 
+a b
 a b .
 q0
 .
