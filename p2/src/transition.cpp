@@ -60,6 +60,17 @@ std::string Transition::get_next(){
   return nextState_;
 }
 
+std::vector<std::string> Transition::get_readSymbols(void){
+  return readTapes_;
+}
+
+std::vector<std::string>Transition:: get_writeSymbols(void){
+  return writeTapes_;
+}
+std::vector<std::string> Transition::get_movements(void){
+  return movements_;
+}
+
 void Transition::set_actual(std::string actual){
   actualState_ = actual;
 }
@@ -76,27 +87,30 @@ void Transition::set_next(std::string next){
   nextState_ = next;
 }
 
-void Transition::set_movement(std::string move){
+void Transition::set_movement(char move){
   movement_ = move;
 }
 
 void Transition::write(void){
   // std::cout << actualState_ << " " << readTape_ << " " << nextState_ << " " << 
   //   writeTape_ << " " << movement_ << "\n";
-  std::cout  << "Atcual: " << actualState_ << " ";
-  std::cout << "\nLeer: \n";
+  std::cout << "-------------------------\n";
+  std::cout  << "Actual: " << actualState_ << " ";
+  std::cout << "\nLeer:\n";
   for(int i = 0; i<tapeNumber_; i++){
     std::cout << "cinta " << i << ":" << readTapes_[i] << "\n";
   }
-  std::cout << nextState_ << " ";
+  std::cout << "Siguiente:" << nextState_ << " ";
 
-  std::cout << "\nEscribe: \n";
+  std::cout << "\n\nEscribe: \n";
   for(int i = 0; i<tapeNumber_; i++){
     std::cout << "cinta " << i << ":" << writeTapes_[i] << "\n";
   }
 
   std::cout << "\nSe mueve: \n";
+  std::cout << movement_[0];
   for(int i = 0; i<tapeNumber_; i++){
     std::cout << "cinta " << i << ":" << movements_[i] << " ";
   }
+  std::cout << "\n-------------------------\n";
 }

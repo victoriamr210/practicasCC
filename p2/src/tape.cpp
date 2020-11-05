@@ -2,6 +2,7 @@
 
 Tape::Tape(void){
   tape_.push_back(".");
+  head_ = 0;
 }
 
 Tape::Tape(std::string testString){
@@ -14,16 +15,30 @@ Tape::Tape(std::string testString){
   }
   tape_.push_back(".");
 
-  head_ = 0;
+  head_ = 1;
 }
 
 void Tape::move_head(std::string write, std::string movement){
   tape_[head_] = write;
-  if(movement == LEFT){
+  std::cout << movement << "\n";
+  char move = movement[0];
+  if(move == LEFT){
+    std::cout << "nos movemos a la izda\n";
     head_--;
+    if(head_ == -1){
+      tape_.resize(tape_.size() + 1);
+      tape_.insert(tape_.begin()+1, tape_.begin(), tape_.end());
+      tape_[0] == ".";
+      head_ = 0;
+    }
   }
-  if(movement == RIGHT){
+  if(move == RIGHT){
+    std::cout << "nos movemos a la derecha\n";
     head_++;
+    if(head_ == tape_.size()){
+      tape_.resize(tape_.size() +1);
+      tape_[head_] = ".";
+    }
   }
 }
 

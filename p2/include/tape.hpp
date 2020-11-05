@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#define LEFT "L"
-#define RIGHT "R"
-#define STOP "S"
+#define LEFT 'L'
+#define RIGHT 'R'
+#define STOP 'S'
 
 class Tape{
   private:

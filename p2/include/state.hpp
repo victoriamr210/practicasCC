@@ -12,7 +12,7 @@ class State{
     State(std::string state);
     std::string get_id(void);
     bool check_id(std::string aux);
-    std::vector<Transition> get_trans(std::string symbol);
+    Transition get_trans(std::vector<std::string> symbols);
     void push(Transition t);
     void write(void);
 };

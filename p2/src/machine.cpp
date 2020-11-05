@@ -42,7 +42,7 @@ void Machine::read(char file[]){
   }else{
     std::cerr << "Error de apertura\n";
   }
-  write();
+  // write();
 }
 
 void Machine::build_states(std::string aux){
@@ -83,6 +83,26 @@ void Machine::build_tape_symbols(std::string aux){
   }
 }
 
+void Machine::run(void){
+  std::string currentState = initialState_;
+  while(finalState_.compare(currentState) != 0){
+    std::cout << "||||" << currentState << " - " << finalState_ << "||||||\n";
+    int pos = find_state(currentState);
+    std::vector<std::string> readTape = get_read_tapes();
+    // states_[pos].write();
+    Transition actual = states_[pos].get_trans(readTape);
+    actual.write();
+    std::vector<std::string> writeTape = actual.get_writeSymbols();
+    std::vector<std::string> moveTape = actual.get_movements();
+    for(int i = 0; i < numberTapes_; i++){
+      tapes_[i].move_head(writeTape[i], moveTape[i]);
+    }
+    currentState = actual.get_next();
+    std::cout << "current-> " << currentState << "\n";
+  }
+  std::cout << "fin bucle\n";
+}
+
 void Machine::write(void) {
   // std::cout << *(stateSet_.begin()) << " ";
   std::cout << "\nEstados:\n";
@@ -120,7 +140,6 @@ void Machine::make_state(std::string s, Transition t){
   for(int i = 0; i < states_.size(); i++){
     if(states_[i].check_id(s)){
       states_[i].push(t);
-      // std::cout << "why\n";
     }
   }
 }
@@ -143,8 +162,26 @@ void Machine::set_string(std::string aux){
     Tape tt;
     tapes_[i] = tt;
   }
-  std::cout << "\nCINTAS:\n";
-  for(int i = 0; i< numberTapes_; i++){
-    tapes_[i].write();
+  // std::cout << "\nCINTAS:\n";
+  // for(int i = 0; i< numberTapes_; i++){
+  //   tapes_[i].write();
+  // }
+}
+
+int Machine::find_state(std::string state){
+  for(int i = 0; i < states_.size(); i++){
+    // std::cout << states_[i].get_id() << "estado acutal\n";
+    if(states_[i].check_id(state)){
+      // std::cout << "return\n";
+      return i;
+    }
   }
+}
+
+std::vector<std::string> Machine::get_read_tapes(void){
+  std::vector<std::string> aux;
+  for(int i = 0; i <tapes_.size(); i++){
+    aux.push_back(tapes_[i].get_actual());
+  }
+  return aux;
 }

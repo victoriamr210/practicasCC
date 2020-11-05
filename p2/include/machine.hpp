@@ -30,4 +30,7 @@ class Machine{
     void write(void);
     bool check_machine(void);
     void set_string(std::string aux);
+    void run(void);
+    int find_state(std::string state);
+    std::vector<std::string> get_read_tapes(void);
 };

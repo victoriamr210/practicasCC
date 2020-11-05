@@ -18,6 +18,7 @@ int main(int argc, char* argv[]) {
     if(mt.check_machine()){
       std::string checkString = get_string(argv[2]);
       mt.set_string(checkString);
+      mt.run();
     }
   }
 }

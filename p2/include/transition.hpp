@@ -28,6 +28,10 @@ class Transition{
     void set_writeSymbol(std::string write);                    //setter del simbolo a escribir en la cintas
     void set_readSymbol(std::string read); //setter del simbolo a leer de la cinta
     void set_next(std::string next);                  //setter del estado siguiente
-    void set_movement(std::string move);        //setter del movimiento
+    void set_movement(char move);        //setter del movimiento
     void write();                                     //imprimir en pantalla
+
+    std::vector<std::string> get_readSymbols(void);
+    std::vector<std::string> get_writeSymbols(void);
+    std::vector<std::string> get_movements(void);
 };

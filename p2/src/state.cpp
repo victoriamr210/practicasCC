@@ -10,17 +10,24 @@ std::string State::get_id(void){
 }
 
 bool State::check_id(std::string aux){
+  if(id_.compare(aux) == 0){
+    return true;
+  }
+  return false;
+  return id_.compare(aux);
   return id_ == aux;
 }
 
-std::vector<Transition> State::get_trans(std::string symbol){
-   std::vector<Transition> v;
+Transition State::get_trans(std::vector<std::string> symbols){
+  std::cout << get_id() << " id\n";
+
   for(int i = 0; i < trans_.size(); i++){
-    if ((trans_[i].get_readSymbol() == symbol)){
-      v.push_back(trans_[i]);
+    if (trans_[i].get_readSymbols() == symbols){
+      // trans_[i].write();
+      // std::cout << i << "\n";
+      return trans_[i];
     }
   }
-  return v;
 }
 
 void State::push(Transition t){
@@ -29,6 +36,7 @@ void State::push(Transition t){
 
 void State::write(void){
   for(int i =0; i < trans_.size(); i++){
+    std::cout << "----------------------\n";
     trans_[i].write();
   }
 }
