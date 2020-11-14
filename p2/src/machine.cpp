@@ -94,28 +94,22 @@ void Machine::run(void){
     std::vector<std::string> readTape = get_read_tapes();
     // states_[pos].write();
     Transition actual = states_[pos].get_trans(readTape);
-    // if(null_transition(actual)){
-    //   accepted = false;
-    //   break;
-    // }
+    if(null_transition(actual)){
+      accepted = false;
+      std::cout << "null\n";
+
+      break;
+    }
     // actual.write();
     std::vector<std::string> writeTape = actual.get_writeSymbols();
     std::vector<std::string> moveTape = actual.get_movements();
     for(int i = 0; i < numberTapes_; i++){
       tapes_[i].move_head(writeTape[i], moveTape[i]);
     }
-    if(currentState == actual.get_actual()){
-      cont++;
-    } else {
-      cont = 0;
-    }
     currentState = actual.get_next();
-    if(cont == 20){
-      break;
-    }
   }
 
-  if(cont < 20){
+  if(accepted){
     std::cout << "\nCadena aceptada";
   } else {
     std::cout << "\nCadena no aceptada";
@@ -166,16 +160,6 @@ void Machine::make_state(std::string s, Transition t){
   }
 }
 
-bool Machine::check_machine(void){
-  // std::cout << *(stateSet_.begin()) << " " << initialState_ << "\n";
-
-   if (stateSet_.find(initialState_) == stateSet_.end()){
-  //   std::cerr << "ERROR: Estado inicial no esta en el conjunto de estados\n";
-  //   return false;
-  }
-  return true;
-}
-
 void Machine::set_string(std::string aux){
   tapes_.resize(numberTapes_);
   Tape t(aux);
@@ -209,4 +193,11 @@ void Machine::write_tapes(void){
   for(int i = 0; i< numberTapes_; i++){
     tapes_[i].write();
   }
+}
+
+bool Machine::null_transition(Transition t){
+  if(t.get_actual() == "null"){
+    return true;
+  }
+  return false;
 }

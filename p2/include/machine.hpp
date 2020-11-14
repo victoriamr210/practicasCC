@@ -28,10 +28,10 @@ class Machine{
     void build_symbols(std::string aux);
     void make_state(std::string id, Transition t);
     void write(void);
-    bool check_machine(void);
     void set_string(std::string aux);
     void run(void);
     int find_state(std::string state);
     std::vector<std::string> get_read_tapes(void);
     void write_tapes(void);
+    bool null_transition(Transition t);
 };
