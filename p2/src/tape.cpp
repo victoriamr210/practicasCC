@@ -1,4 +1,6 @@
 #include "../include/tape.hpp"
+#include <algorithm>
+#include <iterator>
 
 Tape::Tape(void){
   tape_.push_back(".");
@@ -24,10 +26,21 @@ void Tape::move_head(std::string write, std::string movement){
   if(movement == LEFT){
     head_--;
     if(head_ == -1){
-      tape_.resize(tape_.size() + 1);
-      tape_.insert(tape_.begin()+1, tape_.begin(), tape_.end());
-      tape_[0] == ".";
-      head_ = 0;
+      std::vector<std::string> aux = tape_;
+      // tape_.resize(tape_.size() + 1);
+      // tape_.insert(tape_.begin()+1, aux.begin(), aux.end());
+
+      // tape_.reserve(v.size() + 6);
+
+      // v.push_back(12);
+      // v.push_back();
+      // ...
+    std::rotate(tape_.begin(), tape_.end() - 1, tape_.end());
+    tape_.push_back(".");
+    std::rotate(tape_.begin(), tape_.end() - 1, tape_.end());
+    // tape_[0] == ".";
+    // std::rotate(v.begin() + 1, v.begin() + 4, v.end());
+    head_ = 0;
     }
   }
   if(movement == RIGHT){

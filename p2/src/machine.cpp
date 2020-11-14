@@ -86,19 +86,41 @@ void Machine::build_tape_symbols(std::string aux){
 
 void Machine::run(void){
   std::string currentState = initialState_;
-  while(finalState_.compare(currentState) != 0){
+  int cont = 0;
+  bool accepted = true;
+  while(finalState_ != currentState){
+    // std::cout << "Current->" << currentState << "\n";
     int pos = find_state(currentState);
     std::vector<std::string> readTape = get_read_tapes();
     // states_[pos].write();
     Transition actual = states_[pos].get_trans(readTape);
+    // if(null_transition(actual)){
+    //   accepted = false;
+    //   break;
+    // }
     // actual.write();
     std::vector<std::string> writeTape = actual.get_writeSymbols();
     std::vector<std::string> moveTape = actual.get_movements();
     for(int i = 0; i < numberTapes_; i++){
       tapes_[i].move_head(writeTape[i], moveTape[i]);
     }
+    if(currentState == actual.get_actual()){
+      cont++;
+    } else {
+      cont = 0;
+    }
     currentState = actual.get_next();
+    if(cont == 20){
+      break;
+    }
   }
+
+  if(cont < 20){
+    std::cout << "\nCadena aceptada";
+  } else {
+    std::cout << "\nCadena no aceptada";
+  }
+  std::cout << "\nEstado final: " << currentState;
   write_tapes();
 
 }

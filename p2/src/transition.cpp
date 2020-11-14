@@ -1,6 +1,10 @@
 #include "../include/transition.hpp"
 #include <vector>
 
+Transition::Transition(int notValid){
+  set_actual("null");
+}
+
 Transition::Transition(std::string aux, int number) {
   tapeNumber_ = number;
 

@@ -24,6 +24,7 @@ Transition State::get_trans(std::vector<std::string> symbols){
       return trans_[i];
     }
   }
+  return Transition(0);
 }
 
 void State::push(Transition t){
@@ -31,7 +32,9 @@ void State::push(Transition t){
 }
 
 void State::write(void){
-  for(int i =0; i < trans_.size(); i++){
-    trans_[i].write();
+  if(!trans_.empty()){
+    for(int i = 0; i < trans_.size(); i++){
+      trans_[i].write();
+    }
   }
 }

@@ -16,7 +16,8 @@ class Transition{
     std::vector<std::string> movements_;
   
   public:
-    Transition(){}
+    Transition(){};
+    Transition(int notValid);
     Transition(std::string aux, int number);
     std::string get_actual();              //getter del estado inicial
     std::string get_readSymbol();                 //get del simbolo a leer de la cinta
